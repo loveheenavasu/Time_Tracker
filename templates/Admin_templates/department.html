@@ -1,0 +1,22 @@
+{% extends 'Admin_templates/base.html' %}
+{% block content %}
+<div class="cards">
+         <h2 class="header">
+            Departments
+         </h2>
+         <div class="services">
+             {% for i in data %}
+            <div class="content content-1">
+               <div class="fab fa-twitter"></div>
+               <h2>
+                  {{i.name}}
+               </h2>
+               <p>
+                  {{i.description}}
+               </p>
+               <a href="{% url 'department_details' i.name %}">Read More</a>
+            </div>
+             {% endfor %}
+         </div>
+      </div>
+     {% endblock content %}

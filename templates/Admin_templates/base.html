@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+{% load static %}
+<!-- Created by CodingLab |www.youtube.com/CodingLabYT-->
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="UTF-8">
+    <!--<title> Drop Down Sidebar Menu | CodingLab </title>-->
+    <link rel="stylesheet" href="style.css">
+    <!-- Boxiocns CDN Link -->
+    <link rel="icon" type="image/png" href="images/icons/favicon.ico" />
+
+    <link rel="stylesheet" type="text/css" href="{% static 'css/cards_departments.css' %}">
+      <link rel="stylesheet" type="text/css" href="{% static 'css/index2.css' %}">
+      <link rel="stylesheet" type="text/css" href="{% static 'css/table.css' %}">
+      <link rel="stylesheet" type="text/css" href="{% static 'css/user_profile.css' %}">
+
+    <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   </head>
+  <style>
+
+
+  </style>
+<!--<body>-->
+<!--  <div class="sidebar close">-->
+
+<!--    <ul class="nav-links">-->
+<!--      <li>-->
+<!--    <div class="profile-details">-->
+<!--      <div class="profile-content">-->
+<!--      </div>-->
+<!--      <div class="name-job">-->
+<!--        {% if user.is_authenticated %}-->
+<!--        <div class="profile_name">{{user.fullname}}</div>-->
+<!--        <div class="job">{{user.designation}}</div>-->
+<!--        {% else %}-->
+<!--        <div class="profile_name">Username</div>-->
+<!--        <div class="job">Designation</div>-->
+<!--        {% endif %}-->
+<!--      </div>-->
+<!--      <i class='bx bx-log-out' ></i>-->
+<!--    </div>-->
+<!--  </li>-->
+<!--      <li>-->
+<!--        <a href="#">-->
+<!--          <i class='bx bx-grid-alt' ></i>-->
+<!--          <span class="link_name">Home</span>-->
+<!--        </a>-->
+<!--        <ul class="sub-menu blank">-->
+<!--          <li><a class="link_name" href="#"></a></li>-->
+<!--        </ul>-->
+<!--      </li>-->
+<!--      <li>-->
+<!--        <div class="iocn-link">-->
+<!--          <a href="#">-->
+<!--            <i class='bx bx-collection' ></i>-->
+<!--            <span class="link_name">Departments</span>-->
+<!--          </a>-->
+<!--          <i class='bx bxs-chevron-down arrow' ></i>-->
+<!--        </div>-->
+<!--        <ul class="sub-menu">-->
+<!--          <li><a class="link_name" href="#">Departments</a></li>-->
+<!--          {% for i in data %}-->
+<!--          <li><a href="{% url 'department_details' i.name %}">{{i.name}}</a></li>-->
+<!--          {% endfor %}-->
+<!--        </ul>-->
+<!--      </li>-->
+<!--      <li>-->
+<!--        <div class="iocn-link">-->
+<!--          <a href="#">-->
+<!--            <i class='bx bx-book-alt' ></i>-->
+<!--            <span class="link_name">Projects</span>-->
+<!--          </a>-->
+<!--          <i class='bx bxs-chevron-down arrow' ></i>-->
+<!--        </div>-->
+<!--        <ul class="sub-menu">-->
+<!--          <li><a class="link_name" href="#">Posts</a></li>-->
+<!--          <li><a href="#">Web Design</a></li>-->
+<!--          <li><a href="#">Login Form</a></li>-->
+<!--          <li><a href="#">Card Design</a></li>-->
+<!--        </ul>-->
+<!--      </li>-->
+<!--      <li>-->
+<!--        <a href="#">-->
+<!--          <i class='bx bx-pie-chart-alt-2' ></i>-->
+<!--          <span class="link_name">Remarks</span>-->
+<!--        </a>-->
+<!--        <ul class="sub-menu blank">-->
+<!--          <li><a class="link_name" href="#">Analytics</a></li>-->
+<!--        </ul>-->
+<!--      </li>-->
+<!--      <li>-->
+<!--        <a href="#">-->
+<!--          <i class='bx bx-line-chart' ></i>-->
+<!--          <span class="link_name">Chart</span>-->
+<!--        </a>-->
+<!--        <ul class="sub-menu blank">-->
+<!--          <li><a class="link_name" href="#">Chart</a></li>-->
+<!--        </ul>-->
+<!--      </li>-->
+<!--      <li>-->
+<!--        <div class="iocn-link">-->
+<!--          <a href="#">-->
+<!--            <i class='bx bx-plug' ></i>-->
+<!--            <span class="link_name">Plugins</span>-->
+<!--          </a>-->
+<!--          <i class='bx bxs-chevron-down arrow' ></i>-->
+<!--        </div>-->
+<!--        <ul class="sub-menu">-->
+<!--          <li><a class="link_name" href="#">Plugins</a></li>-->
+<!--          <li><a href="#">UI Face</a></li>-->
+<!--          <li><a href="#">Pigments</a></li>-->
+<!--          <li><a href="#">Box Icons</a></li>-->
+<!--        </ul>-->
+<!--      </li>-->
+<!--      <li>-->
+<!--        <a href="#">-->
+<!--          <i class='bx bx-compass' ></i>-->
+<!--          <span class="link_name">Explore</span>-->
+<!--        </a>-->
+<!--        <ul class="sub-menu blank">-->
+<!--          <li><a class="link_name" href="#">Explore</a></li>-->
+<!--        </ul>-->
+<!--      </li>-->
+<!--      <li>-->
+<!--        <a href="#">-->
+<!--          <i class='bx bx-history'></i>-->
+<!--          <span class="link_name">History</span>-->
+<!--        </a>-->
+<!--        <ul class="sub-menu blank">-->
+<!--          <li><a class="link_name" href="#">History</a></li>-->
+<!--        </ul>-->
+<!--      </li>-->
+<!--      <li>-->
+<!--        <a href="#">-->
+<!--          <i class='bx bx-cog' ></i>-->
+<!--          <span class="link_name">Setting</span>-->
+<!--        </a>-->
+<!--        <ul class="sub-menu blank">-->
+<!--          <li><a class="link_name" href="#">Setting</a></li>-->
+<!--        </ul>-->
+<!--      </li>-->
+<!--       <li>-->
+<!--        <a href="#">-->
+<!--          <i class='bx bx-cog' ></i>-->
+<!--          <span class="link_name">All Users</span>-->
+<!--        </a>-->
+<!--        <ul class="sub-menu blank">-->
+<!--          <li><a class="link_name" href="{% url 'all_users' %}">All Users</a></li>-->
+<!--        </ul>-->
+<!--      </li>-->
+
+<!--      <li>-->
+<!--    <div class="profile-details">-->
+<!--      <div class="profile-content">-->
+
+<!--      </div>-->
+<!--      <div class="name-job">-->
+<!--        {% if user.is_authenticated %}-->
+<!--        <div class="profile_name">{{user.fullname}}</div>-->
+<!--        <div class="job">{{user.designation}}</div>-->
+<!--        {% else %}-->
+<!--        <div style="margin-right:100px" class="profile_name">Username</div>-->
+<!--        <div class="job">Designation</div>-->
+<!--        {% endif %}-->
+<!--      </div>-->
+<!--    </div>-->
+<!--  <div style="margin-top:230px" class="logo-details">-->
+
+<!--      <span class="logo_name">Zestgeek</span>-->
+<!--      <span><i class='bx bx-log-out'  ></i></span>-->
+
+<!--    </div>-->
+<!--  </li>-->
+<!--</ul>-->
+
+<!--  </div>-->
+<!--  <section class="home-section">-->
+<!--    <div class="home-content">-->
+<!--      <i class='bx bx-menu' ></i>-->
+
+<!--    </div>-->
+
+<!--  </section>-->
+<!--  <script>-->
+<!--  let arrow = document.querySelectorAll(".arrow");-->
+<!--  for (var i = 0; i < arrow.length; i++) {-->
+<!--    arrow[i].addEventListener("click", (e)=>{-->
+<!--   let arrowParent = e.target.parentElement.parentElement;//selecting main parent of arrow-->
+<!--   arrowParent.classList.toggle("showMenu");-->
+<!--    });-->
+<!--  }-->
+<!--  let sidebar = document.querySelector(".sidebar");-->
+<!--  let sidebarBtn = document.querySelector(".bx-menu");-->
+<!--  console.log(sidebarBtn);-->
+<!--  sidebarBtn.addEventListener("click", ()=>{-->
+<!--    sidebar.classList.toggle("close");-->
+<!--  });-->
+<!--  </script>-->
+<!--</body>-->
+<body>
+    <nav class="sidebar close">
+        <header>
+            <div class="image-text">
+                <span class="image">
+                    <!--<img src="logo.png" alt="">-->
+                </span>
+
+                <div class="text logo-text">
+                    {% if user.is_authenticated %}
+                    <span class="name">{{user.fullname}}</span>
+                    <span class="profession">{{user.designation}}</span>
+                    {% endif %}
+                </div>
+            </div>
+
+            <i class='bx bx-chevron-right toggle'></i>
+        </header>
+
+        <div class="menu-bar">
+            <div class="menu">
+
+                <li class="search-box">
+                    <i class='bx bx-search icon'></i>
+                    <input type="text" placeholder="Search...">
+                </li>
+
+                <ul class="menu-links">
+                    <li class="nav-link">
+                        <a href="#">
+                            <i class='bx bx-home-alt icon' ></i>
+                            <span class="text nav-text">Dashboard</span>
+                        </a>
+                    </li>
+
+                    <li class="nav-link">
+                        <a href="#">
+                            <i class='bx bx-bar-chart-alt-2 icon' ></i>
+                            <span class="text nav-text">Revenue</span>
+                        </a>
+                    </li>
+
+                    <li class="nav-link">
+                        <a href="#">
+                            <i class='bx bx-bell icon'></i>
+                            <span class="text nav-text">Notifications</span>
+                        </a>
+                    </li>
+
+                    <li class="nav-link">
+                        <a href="#">
+                            <i class='bx bx-pie-chart-alt icon' ></i>
+                            <span class="text nav-text">Analytics</span>
+                        </a>
+                    </li>
+
+                    <li class="nav-link">
+                        <a href="#">
+                            <i class='bx bx-heart icon' ></i>
+                            <span class="text nav-text">Likes</span>
+                        </a>
+                    </li>
+
+                    <li class="nav-link">
+                        <a href="#">
+                            <i class='bx bx-wallet icon' ></i>
+                            <span class="text nav-text">Wallets</span>
+                        </a>
+                    </li>
+
+                </ul>
+            </div>
+
+            <div class="bottom-content">
+                <li class="">
+                    <a href="#">
+                        <i class='bx bx-log-out icon' ></i>
+                        <span class="text nav-text">Logout</span>
+                    </a>
+                </li>
+
+                <li class="mode">
+                    <div class="sun-moon">
+                        <i class='bx bx-moon icon moon'></i>
+                        <i class='bx bx-sun icon sun'></i>
+                    </div>
+                    <span class="mode-text text">Dark mode</span>
+
+                    <div class="toggle-switch">
+                        <span class="switch"></span>
+                    </div>
+                </li>
+
+            </div>
+        </div>
+
+    </nav>
+
+    <section class="home">
+        {% block content %}
+        
+        {% endblock content %}
+    </section>
+
+    <script>
+        const body = document.querySelector('body'),
+      sidebar = body.querySelector('nav'),
+      toggle = body.querySelector(".toggle"),
+      searchBtn = body.querySelector(".search-box"),
+      modeSwitch = body.querySelector(".toggle-switch"),
+      modeText = body.querySelector(".mode-text");
+
+
+toggle.addEventListener("click" , () =>{
+    sidebar.classList.toggle("close");
+})
+
+searchBtn.addEventListener("click" , () =>{
+    sidebar.classList.remove("close");
+})
+
+modeSwitch.addEventListener("click" , () =>{
+    body.classList.toggle("dark");
+
+    if(body.classList.contains("dark")){
+        modeText.innerText = "Light mode";
+    }else{
+        modeText.innerText = "Dark mode";
+
+    }
+});
+    </script>
+
+</body>
+</html>
