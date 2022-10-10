@@ -7,17 +7,20 @@ router = DefaultRouter()
 router.register(r'register', CustomViewSet, basename='register'),
 
 urlpatterns = [
-    path('', include(router.urls)),
+    path('', views.login_session, name="login_session"),
+    path('router/', include(router.urls)),
     path('login/', MyTokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('login/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
     path('loginpage', views.login_session, name="login_session"),
     path('index/', views.index, name="index"),
-    path('registerpage/', views.home_view, name='register_session'),
-    path('admin_register/', views.admin_register, name='admin_register'),
     path('user_profile/<int:id>', views.user_profile, name='user_profile'),
     path('all_users/', views.all_users, name='all_users'),
+    path('project_detail/<int:id>', views.projects_details, name='project_detail'),
     path('delete/<int:id>', views.delete_user, name='delete'),
-    path('index2/', views.index2, name='index2'),
+    path('delete_project/<int:id>', views.delete_project, name='project_delete'),
+    path('export/excel', views.export_users_xls, name='export_excel'),
+    path('export_excel_projects/', views.export_projects_xls, name='export_excel_project'),
+    path('forgetpassword/', views.forgetpassword, name='forgetpassword')
 ]
 
 

@@ -48,8 +48,6 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
-    "django.middleware.security.SecurityMiddleware",
-    "whitenoise.middleware.WhiteNoiseMiddleware",
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -58,7 +56,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
-STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+# STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 ROOT_URLCONF = 'Time_Tracker.urls'
 
 TEMPLATES = [
@@ -138,8 +136,6 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 
 STATIC_URL = '/static/'
-STATIC_HOST = os.environ.get("DJANGO_STATIC_HOST", "")
-STATIC_ROOT = os.path.join(BASE_DIR, "static")
 STATICFILES_DIRS = [
    os.path.join(BASE_DIR, 'static/')
 ]

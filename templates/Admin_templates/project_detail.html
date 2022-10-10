@@ -1,0 +1,17 @@
+{% extends 'Admin_templates/base.html' %}
+{% block content %}
+{% for i in projectsdata %}
+<div style="margin-left:100px">
+{{i.project}}<br>
+{{i.department}}<br>
+{{i.is_ongoing}}<br>
+{{i.description}}<br>
+{{i.is_completed}}<br>
+{{i.created_at}}<br>
+{{i.updated_at}}<br>
+{{i.received_at}}<br>
+{{i.completed_at}}<br>
+{{i.deadline}}<br>
+    </div>
+{% endfor %}
+{% endblock %}

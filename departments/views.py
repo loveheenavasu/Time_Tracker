@@ -8,6 +8,9 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework import status
 from django.http import JsonResponse
 from accounts.models import User
+from main_app.models import Projects, Task
+import xlwt
+from django.http import HttpResponse
 
 # Create your views here.
 
@@ -100,11 +103,9 @@ def departments(request):
     return render(request, 'Admin_templates/department.html', context)
 
 
-def department_info(request, department_name):
-    users = User.objects.filter(department__name=department_name)
-    context = {'users': users}
-    usercount = User.objects.all().count
-    print(usercount, "--------------------------------->")
+def department_info(request, name):
+    users = User.objects.filter(department__name=name)
+    projects = Projects.objects.filter(department__name=name)
+    context = {'users': users,'projects': projects}
     return render(request, 'Admin_templates/department_details.html', context)
-
 

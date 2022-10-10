@@ -37,18 +37,24 @@ class UserManager(BaseUserManager):
 
 
 class User(AbstractBaseUser, PermissionsMixin):
+    username = models.CharField(max_length=255, null=True, blank=True)
     fullname = models.CharField(max_length=255, null=True, blank=True)
     email = models.EmailField('email address', max_length=255, unique=True, error_messages={'unique': "A user with that email already exists.", })
     contact = models.BigIntegerField(null=True, blank=True)
+    education = models.CharField(max_length=255, null=True, blank=True)
+    experience = models.CharField(max_length=255, null=True, blank=True)
+    City = models.CharField(max_length=255, null=True, blank=True)
+    description = models.TextField(max_length=500, null=True, blank=True)
     department = models.ForeignKey(Departments, on_delete=models.CASCADE, null=True, blank=True)
+    address = models.CharField(max_length=1000, null=True, blank=True)
     designation = models.CharField(max_length=255, null=True, blank=True)
     is_admin = models.BooleanField('admin',default=True,help_text=('Designates whether this user should be treated as active. ''Unselect this instead of deleting accounts.'), )
     is_active = models.BooleanField('active',default=True,help_text=('Designates whether this user should be treated as active. ''Unselect this instead of deleting accounts.'),)
     is_staff = models.BooleanField('staff status',default=False,help_text='Designates whether the user can log into this admin site.',)
     is_projectmanager = models.BooleanField('project manager status', default=False,help_text='Designates whether the user can log into this admin site.', )
-    is_employee = models.BooleanField(default=False, null=True, blank=True)
-    is_TeamLeader = models.BooleanField(default=False, null=True, blank=True)
-    date_joined = models.DateTimeField(auto_now_add=True)
+    is_employee = models.BooleanField(default=False)
+    is_TeamLeader = models.BooleanField(default=False)
+    date_joined = models.DateTimeField(null=True, blank=True)
     USERNAME_FIELD = 'email'
     EMAIL_FIELD = 'email'
     REQUIRED_FIELDS = []

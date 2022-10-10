@@ -1,6 +1,6 @@
 from rest_framework.viewsets import ModelViewSet
 from django.shortcuts import get_object_or_404
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from Time_Tracker.permissions import IsAdmin
 from rest_framework.permissions import AllowAny
 from .models import Task, Projects, Remarks
@@ -10,8 +10,13 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework import status
 from django.http import JsonResponse
 from accounts.views import generate_token
+from django.contrib import messages
 import requests
-from django.views.decorators.csrf import csrf_exempt
+from accounts.models import User
+from datetime import date
+
+from .forms import ProjectsForm, TaskForm
+
 
 # Create your views here.
 
@@ -261,95 +266,57 @@ class RemarksViewSet(ModelViewSet):
 
 
 
-@csrf_exempt
 def project(request):
-    token = generate_token()
-    hed = {"Authorization": f"Bearer {token.get('access')}"}
-    print("request", request, request.method)
-    if request.GET:
-            project_name = request.GET['project_name']
-            description = request.GET['description']
-            project_deadline = request.GET['project_deadline']
-
-            print(project_name, description, "here")
-
-            base_api = "http://127.0.0.1:8000/projects/"
-
-            data = {
-                "project_name": project_name,
-                "description": description,
-                "project_deadline": project_deadline,
-            }
-            print(data, "Data")
-            req = requests.post(base_api, json=data, headers=hed)
-            print(req, "request")
-            req.raise_for_status()
-            data = req.json()
-            print("data", data)
-            context = {
-                "status": 200,
-                "message": data
-            }
-            return JsonResponse(data)
-
+    if request.method == "POST":
+        form = ProjectsForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('login_session')
     else:
-        print("invalid")
-    return render(request, 'projects.html')
+        form = ProjectsForm()
+    return render(request, 'projects.html', {'form': form})
 
 
 
-@csrf_exempt
 def task(request):
-    username = request.user
-    print(username)
-    token = generate_token()
-    hed = {"Authorization": f"Bearer {token.get('access')}"}
-    print("request", request, request.method)
-    if request.GET:
-        project = request.GET['project']
-        description = request.GET['description']
-        task_name = request.GET['task_name']
-        assigned_to = request.GET['assigned_to']
-        deadline = request.GET['deadline']
 
-        print(deadline, description, "here")
 
-        base_api = "http://127.0.0.1:8000/task/"
-
-        data = {
-            "project": project,
-            "description": description,
-            "task_name": task_name,
-            "assigned_to": assigned_to,
-            "deadline": deadline,
-        }
-        print(data, "Data")
-        req = requests.post(base_api, json=data, headers=hed)
-        print(req, "request")
-        req.raise_for_status()
-        data = req.json()
-        print("data", data)
-        context = {
-            "status": 200,
-            "message": data
-        }
-        return JsonResponse(data)
-
+    in_progress_task = Task.objects.filter(in_progress=True)
+    approve_project = Task.objects.filter(in_review=True)
+    completed_projects = Task.objects.filter(is_completed=True)
+    if request.method == "POST":
+        form = TaskForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('login_session')
     else:
-        print("invalid")
-    return render(request, 'task.html')
+        form = TaskForm()
+    context = {'in_progress_task': in_progress_task, 'approve_project': approve_project, 'completed_projects':completed_projects, 'form':form}
+
+    return render(request, 'task.html',context)
+
+def department_info(request, name):
+    users = User.objects.filter(department__name=name)
+    projects = Projects.objects.filter(department__name=name)
+    context = {'users': users,'projects': projects}
+    return render(request, 'Admin_templates/department_details.html', context)
+
+
+def project_data(request):
+    data_project = Projects.objects.all()
+    started_project = Projects.objects.filter(is_started=True)
+    approve_project = Projects.objects.filter(is_approval=True)
+    completed_projects = Projects.objects.filter(is_completed=True)
+    if request.method == "POST":
+        form = ProjectsForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('login_session')
+    else:
+        form = ProjectsForm()
+    context ={'data_project': data_project, 'started_project':started_project,'approve_project':approve_project, 'completed_projects': completed_projects, 'form': form}
+    return render(request, 'projects.html', context)
 
 
 
-def demo(request):
-    token = generate_token()
-    hed = {"Authorization": f"Bearer {token.get('access')}"}
-    print("request", request, request.method)
-    response = requests.get('http://127.0.0.1:8000/task/9/').json()
-    print(response)
-    return render(request, 'demo.html', {'response': response})
-
-
-def logindemo(request):
-    return render(request, 'logindemo.html')
 

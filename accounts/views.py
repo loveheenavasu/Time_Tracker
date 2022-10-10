@@ -1,3 +1,4 @@
+from django.contrib.auth.hashers import make_password
 from django.shortcuts import render, redirect
 from django.shortcuts import get_object_or_404
 from rest_framework_simplejwt.views import TokenObtainPairView
@@ -7,17 +8,18 @@ from django.contrib.auth import login, authenticate
 from django.http import JsonResponse
 from django.contrib import messages
 from rest_framework.permissions import IsAuthenticated
-from django.contrib.auth.forms import AuthenticationForm
 from rest_framework import status
-from .models import User
 from .forms import UserForm
 from Time_Tracker.permissions import IsAdmin, IsProjectManager
 from .serializers import UserSerializer, MyTokenObtainPairSerializer
 import requests
+from main_app.models import Projects
 from django.views.decorators.csrf import csrf_exempt
 from .models import *
 from pathlib import Path
-
+from main_app.models import Task
+import xlwt
+from django.http import HttpResponse
 BASE_DIR = Path(__file__).resolve().parent
 
 
@@ -195,28 +197,28 @@ def login_session(request):
         print(email, password)
         user = authenticate(request, email=email, password=password)
         user_id = request.user.id
-        print('---------------------------------->',user_id)
+        print('---------------------------------->', user_id)
         data = User.objects.filter(id=user_id)
+        print(data)
         if user is not None:
             login(request, user)
             # Redirect to a success
             for i in data:
                 project_manager = i.is_projectmanager
                 team_leader = i.is_TeamLeader
-                admin = i.is_admin
-                superuser = i.is_superuser
+                employee = i.is_employee
+                staff = i.is_staff
                 print("------------------------------------", project_manager, team_leader)
                 admin = i.is_admin
                 superuser = i.is_superuser
+                print(admin, superuser,'----------------------------------')
                 if admin or superuser:
-                    return redirect('admin_templates/index')
+                    return redirect('all_users/')
                 else:
-                    print("Something else went wrong")
-                    return redirect('/index/')
+                    return redirect('/project_data')
         else:
             messages.success(request, 'Please enter valid Details!')
     return render(request, 'login.html')
-
 
 
 def generate_token():
@@ -232,38 +234,9 @@ def generate_token():
     token = req.json()
     return token
 
-def home_view(request):
-    if request.method == "POST":
-        form = UserForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('login_session')
-    else:
-        form = UserForm()
-    return render(request, 'register.html', {'form': form})
 
 
 
-    # token = generate_token()
-    # hed = {"Authorization": f"Bearer {token.get('access')}"}
-    # print("request", request, request.method)
-    # data = None
-    # department_users = Department.objects.all()
-    # if request.GET:
-    #     username = request.GET['username']
-    #     first_name = request.GET['first_name']
-    #     last_name = request.GET['last_name']
-    #     email = request.GET['email']
-    #     password = request.GET['password']
-    #     contact = request.GET['contact']
-    
-    #     userregister = User(username=username, first_name=first_name, last_name=last_name, email=email, password=password, contact=contact)
-    #     userregister.save()
-    #     return redirect('/loginpage')
-    #     return JsonResponse(data)
-    # else:
-    #     print("invalid")
-    # return render(request, 'register.html')
 
 
 
@@ -274,36 +247,112 @@ def index(request):
 
 
 def user_profile(request, id):
-    user_data = User.objects.get(id=id)
-    context = {'user_data': user_data}
+    user_data = User.objects.get(id = id)
+    user = request.user.id
+    try:
+        task_details = Task.objects.get(assigned_to=user)
+        project_detail_user = Task.objects.filter(project__id=id)
+        print("------------------->", task_details.description)
+        tast_data = task_details.assigned_to.all()
+        print("------------------------------------------------------------->", tast_data)
+        context = {'user_data': user_data, 'task_details': task_details}
+    except:
+        pass
+        context = {'user_data': user_data}
     return render(request, 'user_profile.html', context)
 
-def admin_register(request):
-    if request.method == "POST":
-        form = USerForm(request.POST)
-        if form.is_valid():
-            form.save()
-    else:
-        form = USerForm()
-    return render(request, 'Admin_templates/departments_.html', {'form': form})
 
 def all_users(request):
     all_users = User.objects.all()
-    context = {'all_users': all_users}
-    return render(request, 'Admin_templates/all_users.html', context)
+    if request.method == "POST":
+        print('---------------DATA', request.POST)
+        serializer = UserSerializer(data=request.POST)
+        if serializer.is_valid():
+            serializer.save()
+            print(serializer.data, 'SERIALIZER DATA--------------------------')
+
+            # form = UserForm(request.POST)
+            # print('----------------FORM', form)
+            # if form.is_valid():
+            #     form.save()
+            return redirect('login_session')
+    else:
+        form = UserForm()
+    return render(request, 'Admin_templates/all_users.html', {'all_users': all_users, 'form': form})
+
+
+def projects_details(request, id):
+    projectsdata = Projects.objects.filter(id=id)
+    context = {'projectsdata': projectsdata}
+    return render(request, 'Admin_templates/project_detail.html', context)
 
 def delete_user(request, id):
-        try:
-            user_data = User.objects.get(id=id)
-        except User.DoesNotExist:
-            messages.success(request, 'User Does not exist!')
-        user_data.delete()
-        messages.success(request, 'User deleted successfully')
-        return render(request, 'Admin_templates/department_details.html')
+    try:
+        u = User.objects.get(id=id)
+        u.delete()
+        messages.success(request, "The user is deleted")
+
+    except User.DoesNotExist:
+        messages.error(request, "User doesnot exist")
+        return render(request, 'Admin_templates/all_users.html')
+
+    except Exception as e:
+        return render(request, 'front.html', {'err': e.message})
+
+    return render(request, 'Admin_templates/all_users.html')
+
+
+def delete_project(request, id):
+    try:
+        user_data = Projects.objects.get(id=id)
+    except User.DoesNotExist:
+        messages.success(request, 'Project Does not exist!')
+    user_data.delete()
+    messages.success(request, 'Project deleted successfully')
+    return render(request, 'projects.html')
+
+
+def export_users_xls(request):
+    response = HttpResponse(content_type='application/ms-excel')
+    response['Content-Disposition'] = 'attachment; filename="users.xls"'
+    wb = xlwt.Workbook(encoding='utf-8')
+    ws = wb.add_sheet('Users Data')
+    row_num = 0
+    font_style = xlwt.XFStyle()
+    font_style.font.bold = True
+    columns = ['fullname', 'email', 'contact', 'department', 'designation', 'is_admin', 'is_active', 'is_projectmanager','is_employee', 'is_TeamLeader', 'date_joined', 'is_staff' ]
+    for col_num in range(len(columns)):
+        ws.write(row_num, col_num, str(columns[col_num]), font_style)
+    font_style = xlwt.XFStyle()
+    rows = User.objects.all().values_list('fullname', 'email', 'contact', 'department', 'designation', 'is_admin', 'is_active', 'is_projectmanager','is_employee', 'is_TeamLeader', 'date_joined', 'is_staff')
+    for row in rows:
+        row_num += 1
+        for col_num in range(len(row)):
+            ws.write(row_num, col_num, str(row[col_num]), font_style)
+    wb.save(response)
+    return response
 
 
 
-def index2(request):
-    data = User.objects.all()
-    context = {'data': data}
-    return render(request, 'Admin_templates/index2.html')
+def export_projects_xls(request):
+    response = HttpResponse(content_type='application/ms-excel')
+    response['Content-Disposition'] = 'attachment; filename="Projects.xls"'
+    wb = xlwt.Workbook(encoding='utf-8')
+    ws = wb.add_sheet('Projects Data')
+    row_num = 0
+    font_style = xlwt.XFStyle()
+    font_style.font.bold = True
+    columns = ['project', 'is_ongoing', 'description', 'department', 'is_completed', 'created_at', 'updated_at', 'received_at', 'completed_at', 'deadline']
+    for col_num in range(len(columns)):
+        ws.write(row_num, col_num, str(columns[col_num]), font_style)
+    font_style = xlwt.XFStyle()
+    rows = Projects.objects.all().values_list('project', 'is_ongoing', 'description', 'department', 'is_completed', 'created_at', 'updated_at', 'received_at', 'completed_at', 'deadline')
+    for row in rows:
+        row_num += 1
+        for col_num in range(len(row)):
+            ws.write(row_num, col_num, str(row[col_num]), font_style)
+    wb.save(response)
+    return response
+
+def forgetpassword(request):
+    return render(request, 'forgetpassword.html')
