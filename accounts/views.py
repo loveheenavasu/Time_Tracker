@@ -17,6 +17,7 @@ from main_app.models import Projects
 from django.views.decorators.csrf import csrf_exempt
 from .models import *
 from pathlib import Path
+from django.contrib.auth import logout
 from main_app.models import Task
 import xlwt
 from django.http import HttpResponse
@@ -356,3 +357,8 @@ def export_projects_xls(request):
 
 def forgetpassword(request):
     return render(request, 'forgetpassword.html')
+
+
+def logout_view(request):
+    logout(request)
+    return redirect('login_session')

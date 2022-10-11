@@ -1,6 +1,5 @@
 {% extends 'Base.html' %}
 {% block content %}
-{% for i in projectsdata %}
 <div class="body d-flex py-lg-3 py-md-2">
                 <div class="container-xxl">
                     <div class="row align-items-center">
@@ -14,10 +13,10 @@
                         <div class="col-md-8">
                             <div class="card">
                                 <div class="card-body">
-                                    <h3 class="mb-5 text-secondary">Project: Tc-00011</h3>
-                                    <h4 class="mb-3">{{i.project_name}}</h4>
-                                    <p class="fs-6">{{i.description}}</p>
-                                    <p class="fs-6">{{i.description}}</p>
+                                    <h3 class="mb-5 text-secondary">Task: Tc-00011</h3>
+                                    <h4 class="mb-3">{{task_data.task_name}}</h4>
+                                    <p class="fs-6">{{task_data.description}}</p>
+                                    <p class="fs-6">{{task_data.description}}</p>
                                     <h5 class="mt-4 mb-3">Issue point</h5>
                                     <ul class="list-unstyled list-style lh-lg">
                                         <li><i class="fa fa-angle-double-right me-3"></i>It is a long established fact that a reader will be distracted</li>
@@ -34,7 +33,7 @@
                             <ul class="list-group">
                                 <li class="list-group-item d-flex justify-content-between align-items-center">
                                     Created:
-                                    <span class="">{{i.created_at}}</span>
+                                    <span class="">{{.created_at}}</span>
                                 </li>
                                 <li class="list-group-item d-flex justify-content-between align-items-center">
                                     Created by:
@@ -54,5 +53,4 @@
                 </div>
             </div>
 
-{% endfor %}
 {% endblock %}

@@ -9,6 +9,7 @@ urlpatterns = [
     path('', include(router.urls)),
     path('department_details/<str:name>', views.department_info, name='department_details'),
     path('departments_/', views.departments, name='admin_departments'),
+    path('screenshots/', views.screenshorts, name='screenshots'),
 
 ]
 

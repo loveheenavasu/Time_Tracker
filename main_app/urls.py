@@ -11,4 +11,5 @@ urlpatterns = [
     path('', include(router.urls)),
     path('project_data/', views.project_data, name='project_data'),
     path('taskpage/', views.task, name='task'),
+    path('task_detail/<int:id>', views.task_detail, name='task_detail'),
 ]

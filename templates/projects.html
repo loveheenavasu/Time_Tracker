@@ -44,7 +44,7 @@
                                                             <div class="project-block light-info-bg">
                                                                 <i class="icofont-paint"></i>
                                                             </div>
-                                                            <span class="small text-muted project_name fw-bold">{{i.project_name}}</span>
+                                                            <a href="{% url 'project_detail' i.id %}"><span class="small text-muted project_name fw-bold">{{i.project_name}}</span></a>
                                                             <h6 class="mb-0 fw-bold  fs-6  mb-2">{{i.project_category}}</h6>
                                                         </div>
                                                         <div class="btn-group" role="group" aria-label="Basic outlined example">
@@ -101,7 +101,7 @@
                                                             <div class="project-block light-info-bg">
                                                                 <i class="icofont-paint"></i>
                                                             </div>
-                                                            <span class="small text-muted project_name fw-bold">{{a.project_name}}</span>
+                                                            <a href="{% url 'project_detail' a.id %}"><span class="small text-muted project_name fw-bold">{{a.project_name}}</span></a>
                                                             <h6 class="mb-0 fw-bold  fs-6  mb-2">{{a.project_category}}</h6>
                                                         </div>
                                                         <div class="btn-group" role="group" aria-label="Basic outlined example">
@@ -161,8 +161,8 @@
                                                             <div class="project-block light-info-bg">
                                                                 <i class="icofont-paint"></i>
                                                             </div>
-                                                            <span class="small text-muted project_name fw-bold">{{b.project}}</span>
-                                                            <h6 class="mb-0 fw-bold  fs-6  mb-2">UI/UX Design</h6>
+                                                            <a href="{% url 'project_detail' b.id %}"><span class="small text-muted project_name fw-bold">{{b.project_name}}</span></a>
+                                                            <h6 class="mb-0 fw-bold  fs-6  mb-2">{{b.project_category}}</h6>
                                                         </div>
                                                         <div class="btn-group" role="group" aria-label="Basic outlined example">
                                                             <button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#editproject"><i class="icofont-edit text-success"></i></button>
@@ -195,7 +195,7 @@
                                                         <div class="col-6">
                                                             <div class="d-flex align-items-center">
                                                                 <i class="icofont-group-students "></i>
-                                                                <span class="ms-2">5 Members</span>
+                                                                <span class="ms-2">{{b.assigned_to.count}}Members</span>
                                                             </div>
                                                         </div>
                                                         <div class="col-6">
@@ -232,8 +232,8 @@
                                                             <div class="project-block light-info-bg">
                                                                 <i class="icofont-paint"></i>
                                                             </div>
-                                                            <span class="small text-muted project_name fw-bold">{{c.project}}</span>
-                                                            <h6 class="mb-0 fw-bold  fs-6  mb-2">UI/UX Design</h6>
+                                                            <a href="{% url 'project_detail' c.id %}"><span class="small text-muted project_name fw-bold">{{c.project_name}}</span></a>
+                                                            <h6 class="mb-0 fw-bold  fs-6  mb-2">{{c.project_category}}</h6>
                                                         </div>
                                                         <div class="btn-group" role="group" aria-label="Basic outlined example">
 
@@ -266,7 +266,7 @@
                                                         <div class="col-6">
                                                             <div class="d-flex align-items-center">
                                                                 <i class="icofont-group-students "></i>
-                                                                <span class="ms-2">5 Members</span>
+                                                                <span class="ms-2">{{c.assigned_to.count}}Members</span>
                                                             </div>
                                                         </div>
                                                         <div class="col-6">
@@ -616,7 +616,7 @@
                         <div class="row g-3 mb-3">
                             <div class="col-sm">
                                 <label for="formFileMultipleone" class="form-label">Department</label>
-                                {{form.department}}
+                                {{form.projectStatus}}
                             </div>
                             <div class="col-sm">
                                 <label for="formFileMultipleone" class="form-label">Priority</label>

@@ -1,6 +1,6 @@
 from rest_framework.viewsets import ModelViewSet
 from django.shortcuts import get_object_or_404
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from .models import Departments
 from .serializers import DepartmentsSerializer, DepartmentsSerializerEdit
 from accounts.views import custom_response
@@ -9,6 +9,9 @@ from rest_framework import status
 from django.http import JsonResponse
 from accounts.models import User
 from main_app.models import Projects, Task
+from main_app.forms import ProjectsForm
+from accounts.forms import UserForm
+from accounts.serializers import UserSerializer
 import xlwt
 from django.http import HttpResponse
 
@@ -106,6 +109,29 @@ def departments(request):
 def department_info(request, name):
     users = User.objects.filter(department__name=name)
     projects = Projects.objects.filter(department__name=name)
-    context = {'users': users,'projects': projects}
+    # started_project = Projects.objects.filter(department__name=name)
+    # approve_project = Projects.objects.filter(is_approval=True)
+    # completed_projects = Projects.objects.filter(is_completed=True)
+    all_users = User.objects.all()
+    if request.method == "POST":
+        print('---------------DATA', request.POST)
+        serializer = UserSerializer(data=request.POST)
+        if serializer.is_valid():
+            serializer.save()
+            print(serializer.data, 'SERIALIZER DATA--------------------------')
+    else:
+        form1 = UserForm()
+    if request.method == "POST":
+        form = ProjectsForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('login_session')
+    else:
+        form = ProjectsForm()
+    context = {'users': users, 'projects': projects, 'form':form, 'form':form1}
     return render(request, 'Admin_templates/department_details.html', context)
+
+
+def screenshorts(request):
+    return render(request, 'screenshorts.html')
 

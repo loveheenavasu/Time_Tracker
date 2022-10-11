@@ -32,8 +32,8 @@
                                                 <li class="dd-item" data-id="1">
                                                     <div class="dd-handle">
                                                         <div class="task-info d-flex align-items-center justify-content-between">
-                                                            <h6 class="light-success-bg py-1 px-2 rounded-1 d-inline-block fw-bold small-14 mb-0">{{i.task_name}}
-                                                            </h6>
+                                                           <a href="{% url 'task_detail' i.id %}"> <h6 class="light-success-bg py-1 px-2 rounded-1 d-inline-block fw-bold small-14 mb-0">{{i.task_name}}
+                                                           </h6></a>
                                                             <div class="task-priority d-flex flex-column align-items-center justify-content-center">
                                                                 <div class="avatar-list avatar-list-stacked m-0">
                                                                     <img class="avatar rounded-circle small-avt" src="assets/images/xs/avatar2.svg" alt="">
@@ -91,7 +91,7 @@
                                                 <li class="dd-item" data-id="1">
                                                     <div class="dd-handle">
                                                         <div class="task-info d-flex align-items-center justify-content-between">
-                                                            <h6 class="light-info-bg py-1 px-2 rounded-1 d-inline-block fw-bold small-14 mb-0">{{i.task_name}}</h6>
+                                                            <a href="{% url 'task_detail' i.id %}"><h6 class="light-info-bg py-1 px-2 rounded-1 d-inline-block fw-bold small-14 mb-0">{{i.task_name}}</h6></a>
                                                             <div class="task-priority d-flex flex-column align-items-center justify-content-center">
                                                                 <div class="avatar-list avatar-list-stacked m-0">
                                                                     <img class="avatar rounded-circle small-avt" src="assets/images/xs/avatar3.svg" alt="">
@@ -149,7 +149,7 @@
                                                 <li class="dd-item" data-id="1">
                                                     <div class="dd-handle">
                                                         <div class="task-info d-flex align-items-center justify-content-between">
-                                                            <h6 class="light-info-bg py-1 px-2 rounded-1 d-inline-block fw-bold small-14 mb-0">{{i.task_name}}</h6>
+                                                           <a href="{% url 'task_detail' i.id %}"> <h6 class="light-info-bg py-1 px-2 rounded-1 d-inline-block fw-bold small-14 mb-0">{{i.task_name}}</h6></a>
                                                             <div class="task-priority d-flex flex-column align-items-center justify-content-center">
                                                                 <div class="avatar-list avatar-list-stacked m-0">
                                                                     <img class="avatar rounded-circle small-avt" src="assets/images/xs/avatar6.svg" alt="">
@@ -269,7 +269,7 @@
                                                 {{form.in_progress}}
                                             </td>
                                             <td class="text-center">
-                                                {{form.in_progress}}
+                                                {{form.in_review}}
                                             </td>
                                             <td class="text-center">
                                                 {{form.is_completed}}

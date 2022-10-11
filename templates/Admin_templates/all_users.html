@@ -39,10 +39,12 @@
                                     </thead>
                                     <tbody>
                                     {% for i in all_users %}
+                                    <a href="{% url 'user_profile' i.id %}">
                                         <tr>
+
                                            <td>
                                                <img class="avatar rounded-circle" src="{% static 'assets/images/xs/avatar1.svg' %}" alt="">
-                                               <span class="fw-bold ms-1">{{i.fullname}}</span>
+                                               <a href="{% url 'user_profile' i.id %}"><span class="fw-bold ms-1">{{i.fullname}}</span></a>
                                            </td>
                                            <td>
                                                <a href="projects.html">{{i.department}}</a>
@@ -66,13 +68,15 @@
                                                 </div>
                                             </td>
                                         </tr>
+                                    </a>
                                     {% endfor %}
                                     </tbody>
                                 </table>
                             </div>
                         </div>
                     </div>
-                    </div><!-- Row End -->
+                    </div>
+                    <!-- Row End -->
                     <div class="modal fade" id="addemp" tabindex="-1"  aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable">
                     <div class="modal-content">
@@ -85,7 +89,7 @@
                             <form action = "" method = "POST">
                             {% csrf_token %}
                             <div class="mb-3">
-                                <label for="exampleFormControlInput877" class="form-label">Employee Name</label>
+                                <label  class="form-label">Employee Name</label>
                                 {{form.fullname}}
                             </div>
                             <div class="mb-3">

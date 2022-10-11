@@ -279,8 +279,6 @@ def project(request):
 
 
 def task(request):
-
-
     in_progress_task = Task.objects.filter(in_progress=True)
     approve_project = Task.objects.filter(in_review=True)
     completed_projects = Task.objects.filter(is_completed=True)
@@ -292,14 +290,9 @@ def task(request):
     else:
         form = TaskForm()
     context = {'in_progress_task': in_progress_task, 'approve_project': approve_project, 'completed_projects':completed_projects, 'form':form}
-
     return render(request, 'task.html',context)
 
-def department_info(request, name):
-    users = User.objects.filter(department__name=name)
-    projects = Projects.objects.filter(department__name=name)
-    context = {'users': users,'projects': projects}
-    return render(request, 'Admin_templates/department_details.html', context)
+
 
 
 def project_data(request):
@@ -311,12 +304,15 @@ def project_data(request):
         form = ProjectsForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('login_session')
     else:
-        form = ProjectsForm()
-    context ={'data_project': data_project, 'started_project':started_project,'approve_project':approve_project, 'completed_projects': completed_projects, 'form': form}
+        form1 = ProjectsForm()
+    context ={'data_project': data_project, 'started_project':started_project,'approve_project':approve_project, 'completed_projects': completed_projects, 'form': form1}
     return render(request, 'projects.html', context)
 
+def task_detail(request, id):
+    task_data = Task.objects.get(id=id)
+    context = {'task_data':task_data}
+    return render(request, 'task_detail.html', context)
 
 
 

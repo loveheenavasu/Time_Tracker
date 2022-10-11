@@ -1,0 +1,438 @@
+{% extends 'Base.html' %}
+{% block content %}
+<!-- Body: Body -->
+            <div class="body d-flex py-3">
+                <div class="container-xxl">
+                    <div class="row align-items-center">
+                        <div class="border-0 mb-4">
+                            <div class="card-header py-3 no-bg bg-transparent d-flex align-items-center px-0 justify-content-between border-bottom">
+                                <h3 class="h4 mb-0">Screencasts</h3>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row g-3 mb-3 align-items-center">
+                        <div class="col-xl-5 col-lg-12 col-md-12">
+                            <ul class="nav nav-tabs tab-body-header rounded">
+                                <li class="nav-item"><a class="nav-link  active" data-bs-toggle="tab" href="#summery-today" >TODAY</a></li>
+                                <li class="nav-item"><a class="nav-link " data-bs-toggle="tab" href="#summery-week">WEEK</a></li>
+                                <li class="nav-item"><a class="nav-link " data-bs-toggle="tab" href="#summery-month">MONTH</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-xl-7 col-lg-12 col-md-12">
+                            <div class="row g-2">
+                                <div class="col-12 col-md-6">
+                                    <div class="input-group-lg">
+                                        <input type="date" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="col-12 col-md-6">
+                                    <div class="input-group-lg">
+                                        <select class="form-select" aria-label="Default select example">
+                                            <option selected>Select User</option>
+                                            <option value="1">sahil</option>
+                                            <option value="2">sahil</option>
+                                            <option value="3">sahil</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row g-3">
+                        <div class="col-lg-12 col-md-12">
+                            <div class="tab-content">
+                                <div class="tab-pane fade show active" id="summery-today">
+                                    <div class="row pb-3 row-deck">
+                                        <div class="col-xl-12">
+                                            <div class="card">
+                                                <div class="card-header d-flex justify-content-between align-items-center bg-transparent border-bottom-0 py-3">
+                                                    <div class="selectall-block">
+                                                        <input class="form-check-input" type="checkbox" value="">
+                                                        <label class="form-check-label">Select All </label>
+                                                    </div>
+                                                    <div class="report ms-3">
+                                                        <input class="form-check-input" type="checkbox" value="" >
+                                                        <label class="form-check-label">Low activity screencasts</label>
+                                                    </div>
+                                                </div>
+                                                <div class="card-body" id="aniimated-thumbnials">
+                                                    <div class="row g-3">
+                                                        <div class="col-12">
+                                                            <div class="timezon-block py-3">
+                                                                <h4 class="fw-bold mb-0 color-600">9AM</h4>
+                                                                <span class="text-muted">Aug 26, 2021</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row g-3 row-cols-1 row-cols-sm-2 row-cols-md-2 row-cols-lg-3 row-cols-xl-4 row-cols-xxl-6">
+                                                        <div class="col">
+                                                            <div class="screen-card  p-2 border">
+                                                                <a href="assets/images/gallery/1.jpg">
+                                                                    <img class="img-fluid img-thumbnail" src="assets/images/gallery/1.jpg" alt="">
+                                                                </a>
+                                                                <div class="user-profile d-flex align-items-center mt-3">
+                                                                    <img class="avatar rounded-circle" src="assets/images/profile_av.svg" alt="profile">
+                                                                    <div class="u-info ms-2">
+                                                                        <span class="fw-bold d-block">sahil dhiman</span>
+                                                                        <span class="text-muted">10:02 AM</span>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="user-activity d-flex justify-content-between">
+                                                                    <div class="keybord-block w-50 pe-1">
+                                                                        <i class="icofont-ui-keyboard "></i>
+                                                                        <div class="progress" style="height: 5px;">
+                                                                            <div class="progress-bar bg-success" role="progressbar" style="width: 25%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="mouse-block w-50 ps-1 text-end">
+                                                                        <i class="icofont-wireless-mouse "></i>
+                                                                        <div class="progress" style="height: 5px;">
+                                                                            <div class="progress-bar bg-success" role="progressbar" style="width: 25%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col">
+                                                            <div class="screen-card  p-2 border">
+                                                                <a href="assets/images/gallery/2.jpg">
+                                                                    <img class="img-fluid img-thumbnail" src="assets/images/gallery/2.jpg" alt="">
+                                                                </a>
+                                                                <div class="user-profile d-flex align-items-center mt-3">
+                                                                    <img class="avatar rounded-circle" src="assets/images/profile_av.svg" alt="profile">
+                                                                    <div class="u-info ms-2">
+                                                                        <span class="fw-bold d-block">sahil dhiman</span>
+                                                                        <span class="text-muted">10:30 AM</span>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="user-activity d-flex justify-content-between">
+                                                                    <div class="keybord-block w-50 pe-1">
+                                                                        <i class="icofont-ui-keyboard "></i>
+                                                                        <div class="progress" style="height: 5px;">
+                                                                            <div class="progress-bar bg-success" role="progressbar" style="width: 25%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="mouse-block w-50 ps-1 text-end">
+                                                                        <i class="icofont-wireless-mouse "></i>
+                                                                        <div class="progress" style="height: 5px;">
+                                                                            <div class="progress-bar bg-success" role="progressbar" style="width: 25%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col">
+                                                            <div class="screen-card  p-2 border">
+                                                                <a href="assets/images/gallery/3.jpg">
+                                                                    <img class="img-fluid img-thumbnail" src="assets/images/gallery/3.jpg" alt="">
+                                                                </a>
+                                                                <div class="user-profile d-flex align-items-center mt-3">
+                                                                    <img class="avatar rounded-circle" src="assets/images/profile_av.svg" alt="profile">
+                                                                    <div class="u-info ms-2">
+                                                                        <span class="fw-bold d-block">sahil dhiman</span>
+                                                                        <span class="text-muted">10:45 AM</span>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="user-activity d-flex justify-content-between">
+                                                                    <div class="keybord-block w-50 pe-1">
+                                                                        <i class="icofont-ui-keyboard "></i>
+                                                                        <div class="progress" style="height: 5px;">
+                                                                            <div class="progress-bar bg-success" role="progressbar" style="width: 25%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="mouse-block w-50 ps-1 text-end">
+                                                                        <i class="icofont-wireless-mouse "></i>
+                                                                        <div class="progress" style="height: 5px;">
+                                                                            <div class="progress-bar bg-success" role="progressbar" style="width: 25%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col">
+                                                            <div class="screen-card  p-2 border">
+                                                                <a href="assets/images/gallery/4.jpg">
+                                                                    <img class="img-fluid img-thumbnail" src="assets/images/gallery/4.jpg" alt="">
+                                                                </a>
+                                                                <div class="user-profile d-flex align-items-center mt-3">
+                                                                    <img class="avatar rounded-circle" src="assets/images/profile_av.svg" alt="profile">
+                                                                    <div class="u-info ms-2">
+                                                                        <span class="fw-bold d-block">sahil dhiman</span>
+                                                                        <span class="text-muted">11:02 AM</span>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="user-activity d-flex justify-content-between">
+                                                                    <div class="keybord-block w-50 pe-1">
+                                                                        <i class="icofont-ui-keyboard "></i>
+                                                                        <div class="progress" style="height: 5px;">
+                                                                            <div class="progress-bar bg-success" role="progressbar" style="width: 25%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="mouse-block w-50 ps-1 text-end">
+                                                                        <i class="icofont-wireless-mouse "></i>
+                                                                        <div class="progress" style="height: 5px;">
+                                                                            <div class="progress-bar bg-success" role="progressbar" style="width: 25%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col">
+                                                            <div class="screen-card  p-2 border">
+                                                                <a href="assets/images/gallery/5.jpg">
+                                                                    <img class="img-fluid img-thumbnail" src="assets/images/gallery/5.jpg" alt="">
+                                                                </a>
+                                                                <div class="user-profile d-flex align-items-center mt-3">
+                                                                    <img class="avatar rounded-circle" src="assets/images/profile_av.svg" alt="profile">
+                                                                    <div class="u-info ms-2">
+                                                                        <span class="fw-bold d-block">sahil dhiman</span>
+                                                                        <span class="text-muted">12:45 AM</span>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="user-activity d-flex justify-content-between">
+                                                                    <div class="keybord-block w-50 pe-1">
+                                                                        <i class="icofont-ui-keyboard "></i>
+                                                                        <div class="progress" style="height: 5px;">
+                                                                            <div class="progress-bar bg-success" role="progressbar" style="width: 25%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="mouse-block w-50 ps-1 text-end">
+                                                                        <i class="icofont-wireless-mouse "></i>
+                                                                        <div class="progress" style="height: 5px;">
+                                                                            <div class="progress-bar bg-success" role="progressbar" style="width: 25%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col">
+                                                            <div class="screen-card  p-2 border">
+                                                                <a href="assets/images/gallery/3.jpg">
+                                                                    <img class="img-fluid img-thumbnail" src="assets/images/gallery/3.jpg" alt="">
+                                                                </a>
+                                                                <div class="user-profile d-flex align-items-center mt-3">
+                                                                    <img class="avatar rounded-circle" src="assets/images/profile_av.svg" alt="profile">
+                                                                    <div class="u-info ms-2">
+                                                                        <span class="fw-bold d-block">sahil dhiman</span>
+                                                                        <span class="text-muted">01:10 PM</span>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="user-activity d-flex justify-content-between">
+                                                                    <div class="keybord-block w-50 pe-1">
+                                                                        <i class="icofont-ui-keyboard "></i>
+                                                                        <div class="progress" style="height: 5px;">
+                                                                            <div class="progress-bar bg-success" role="progressbar" style="width: 25%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="mouse-block w-50 ps-1 text-end">
+                                                                        <i class="icofont-wireless-mouse "></i>
+                                                                        <div class="progress" style="height: 5px;">
+                                                                            <div class="progress-bar bg-success" role="progressbar" style="width: 25%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div> <!-- row end -->
+                                    <div class="row pb-3 row-deck">
+                                        <div class="col-xl-12">
+                                            <div class="card">
+                                                <div class="card-header d-flex justify-content-between align-items-center bg-transparent border-bottom-0 py-3">
+                                                    <div class="selectall-block">
+                                                        <input class="form-check-input" type="checkbox" value="">
+                                                        <label class="form-check-label">Select All </label>
+                                                    </div>
+                                                    <div class="report ms-3">
+                                                        <input class="form-check-input" type="checkbox" value="" >
+                                                        <label class="form-check-label">Low activity screencasts</label>
+                                                    </div>
+                                                </div>
+                                                <div class="card-body">
+                                                    <div class="row g-3">
+                                                        <div class="col-12">
+                                                            <div class="timezon-block py-3">
+                                                                <h4 class="fw-bold mb-0 color-600">10AM</h4>
+                                                                <span class="text-muted">Aug 26, 2021</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row g-3 row-cols-1 row-cols-sm-2 row-cols-md-2 row-cols-lg-3 row-cols-xl-4 row-cols-xxl-6">
+
+                                                        <div class="col">
+                                                            <div class="screen-card  p-2 border">
+                                                                <a href="assets/images/gallery/1.jpg">
+                                                                    <img class="img-fluid img-thumbnail" src="assets/images/gallery/1.jpg" alt="">
+                                                                </a>
+                                                                <div class="user-profile d-flex align-items-center mt-3">
+                                                                    <img class="avatar rounded-circle" src="assets/images/profile_av.svg" alt="profile">
+                                                                    <div class="u-info ms-2">
+                                                                        <span class="fw-bold d-block">sahil dhiman</span>
+                                                                        <span class="text-muted">10:02 AM</span>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="user-activity d-flex justify-content-between">
+                                                                    <div class="keybord-block w-50 pe-1">
+                                                                        <i class="icofont-ui-keyboard "></i>
+                                                                        <div class="progress" style="height: 5px;">
+                                                                            <div class="progress-bar bg-success" role="progressbar" style="width: 25%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="mouse-block w-50 ps-1 text-end">
+                                                                        <i class="icofont-wireless-mouse "></i>
+                                                                        <div class="progress" style="height: 5px;">
+                                                                            <div class="progress-bar bg-success" role="progressbar" style="width: 25%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col">
+                                                            <div class="screen-card  p-2 border">
+                                                                <a href="assets/images/gallery/2.jpg">
+                                                                    <img class="img-fluid img-thumbnail" src="assets/images/gallery/2.jpg" alt="">
+                                                                </a>
+                                                                <div class="user-profile d-flex align-items-center mt-3">
+                                                                    <img class="avatar rounded-circle" src="assets/images/profile_av.svg" alt="profile">
+                                                                    <div class="u-info ms-2">
+                                                                        <span class="fw-bold d-block">sahil dhiman</span>
+                                                                        <span class="text-muted">10:30 AM</span>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="user-activity d-flex justify-content-between">
+                                                                    <div class="keybord-block w-50 pe-1">
+                                                                        <i class="icofont-ui-keyboard "></i>
+                                                                        <div class="progress" style="height: 5px;">
+                                                                            <div class="progress-bar bg-success" role="progressbar" style="width: 25%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="mouse-block w-50 ps-1 text-end">
+                                                                        <i class="icofont-wireless-mouse "></i>
+                                                                        <div class="progress" style="height: 5px;">
+                                                                            <div class="progress-bar bg-success" role="progressbar" style="width: 25%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col">
+                                                            <div class="screen-card  p-2 border">
+                                                                <a href="assets/images/gallery/3.jpg">
+                                                                    <img class="img-fluid img-thumbnail" src="assets/images/gallery/3.jpg" alt="">
+                                                                </a>
+                                                                <div class="user-profile d-flex align-items-center mt-3">
+                                                                    <img class="avatar rounded-circle" src="assets/images/profile_av.svg" alt="profile">
+                                                                    <div class="u-info ms-2">
+                                                                        <span class="fw-bold d-block">sahil dhiman</span>
+                                                                        <span class="text-muted">10:45 AM</span>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="user-activity d-flex justify-content-between">
+                                                                    <div class="keybord-block w-50 pe-1">
+                                                                        <i class="icofont-ui-keyboard "></i>
+                                                                        <div class="progress" style="height: 5px;">
+                                                                            <div class="progress-bar bg-success" role="progressbar" style="width: 25%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="mouse-block w-50 ps-1 text-end">
+                                                                        <i class="icofont-wireless-mouse "></i>
+                                                                        <div class="progress" style="height: 5px;">
+                                                                            <div class="progress-bar bg-success" role="progressbar" style="width: 25%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col">
+                                                            <div class="screen-card  p-2 border">
+                                                                <a href="assets/images/gallery/4.jpg">
+                                                                    <img class="img-fluid img-thumbnail" src="assets/images/gallery/4.jpg" alt="">
+                                                                </a>
+                                                                <div class="user-profile d-flex align-items-center mt-3">
+                                                                    <img class="avatar rounded-circle" src="assets/images/profile_av.svg" alt="profile">
+                                                                    <div class="u-info ms-2">
+                                                                        <span class="fw-bold d-block">sahil dhiman</span>
+                                                                        <span class="text-muted">11:02 AM</span>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="user-activity d-flex justify-content-between">
+                                                                    <div class="keybord-block w-50 pe-1">
+                                                                        <i class="icofont-ui-keyboard "></i>
+                                                                        <div class="progress" style="height: 5px;">
+                                                                            <div class="progress-bar bg-success" role="progressbar" style="width: 25%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="mouse-block w-50 ps-1 text-end">
+                                                                        <i class="icofont-wireless-mouse "></i>
+                                                                        <div class="progress" style="height: 5px;">
+                                                                            <div class="progress-bar bg-success" role="progressbar" style="width: 25%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col">
+                                                            <div class="screen-card  p-2 border">
+                                                                <a href="assets/images/gallery/5.jpg">
+                                                                    <img class="img-fluid img-thumbnail" src="assets/images/gallery/5.jpg" alt="">
+                                                                </a>
+                                                                <div class="user-profile d-flex align-items-center mt-3">
+                                                                    <img class="avatar rounded-circle" src="assets/images/profile_av.svg" alt="profile">
+                                                                    <div class="u-info ms-2">
+                                                                        <span class="fw-bold d-block">sahil dhiman</span>
+                                                                        <span class="text-muted">12:45 AM</span>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="user-activity d-flex justify-content-between">
+                                                                    <div class="keybord-block w-50 pe-1">
+                                                                        <i class="icofont-ui-keyboard "></i>
+                                                                        <div class="progress" style="height: 5px;">
+                                                                            <div class="progress-bar bg-success" role="progressbar" style="width: 25%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="mouse-block w-50 ps-1 text-end">
+                                                                        <i class="icofont-wireless-mouse "></i>
+                                                                        <div class="progress" style="height: 5px;">
+                                                                            <div class="progress-bar bg-success" role="progressbar" style="width: 25%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col">
+                                                            <div class="screen-card  p-2 border">
+                                                                <a href="assets/images/gallery/4.jpg">
+                                                                    <img class="img-fluid img-thumbnail" src="assets/images/gallery/4.jpg" alt="">
+                                                                </a>
+                                                                <div class="user-profile d-flex align-items-center mt-3">
+                                                                    <img class="avatar rounded-circle" src="assets/images/profile_av.svg" alt="profile">
+                                                                    <div class="u-info ms-2">
+                                                                        <span class="fw-bold d-block">sahil dhiman</span>
+                                                                        <span class="text-muted">02:02 PM</span>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="user-activity d-flex justify-content-between">
+                                                                    <div class="keybord-block w-50 pe-1">
+                                                                        <i class="icofont-ui-keyboard "></i>
+                                                                        <div class="progress" style="height: 5px;">
+                                                                            <div class="progress-bar bg-success" role="progressbar" style="width: 25%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="mouse-block w-50 ps-1 text-end">
+                                                                        <i class="icofont-wireless-mouse "></i>
+                                                                        <div class="progress" style="height: 5px;">
+                                                                            <div class="progress-bar bg-success" role="progressbar" style="width: 25%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div> <!-- row end -->
+{% endblock %}

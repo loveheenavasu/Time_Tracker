@@ -9,7 +9,7 @@ class ProjectsForm(forms.ModelForm):
     # specify the name of model to use
     class Meta:
         model = Projects
-        fields = ('project_name', 'assigned_to','project_category', 'is_ongoing', 'description', 'is_started','priority', 'is_approval', 'department', 'is_completed', 'completed_at','deadline')
+        fields = ('project_name', 'assigned_to', 'project_category', 'is_ongoing', 'description', 'is_started', 'priority', 'is_approval', 'department', 'is_completed', 'completed_at','deadline')
         widgets = {
             'project_name': forms.TextInput(
                 attrs={'type': 'text', 'for': "exampleFormControlInput877", 'class': 'form-control',
@@ -27,8 +27,6 @@ class ProjectsForm(forms.ModelForm):
                        'placeholder':'Project Description'}),
 
         }
-
-
 class TaskForm(ModelForm):
   class Meta:
     model = Task
