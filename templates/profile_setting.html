@@ -1,0 +1,208 @@
+{% extends 'Base.html' %}
+{% load static %}
+{% block content %}
+  <!-- Body: Body -->
+            <div class="body d-flex py-3">
+                <div class="container-xxl">
+                    <div class="row align-items-center">
+                        <div class="border-0 mb-4">
+                            <div class="card-header py-3 no-bg bg-transparent d-flex align-items-center px-0 justify-content-between border-bottom flex-wrap">
+                                <h3 class="h4 mb-0">User Profile Setting</h3>
+                            </div>
+                        </div>
+                    </div> <!-- Row end  -->     
+                        <div class="row g-3">
+                        <div class="col-12">
+                            <ul class="nav nav-tabs tab-body-header rounded d-inline-flex">
+                                <li class="nav-item"><a class="nav-link active show" data-bs-toggle="tab" href="#Company_Settings">Company</a></li>
+                                <li class="nav-item"><a class="nav-link" data-bs-toggle="tab" href="#Notifications">Notifications </a></li>
+                                <li class="nav-item"><a class="nav-link" data-bs-toggle="tab" href="#Change_Password">Change Password </a></li>
+                            </ul>
+                            <div class="tab-content mt-3">
+                                <div class="tab-pane active show" id="Company_Settings">
+                                    <div class="card mb-3">
+                                        <div class="card-header p-3">
+                                            <h5 class="card-title">Settings</h5>
+                                        </div>
+                                        <div class="card-body">
+                                            <form class="row g-3">
+                                                <div class="col-md-4 col-sm-12">
+                                                    <div class="form-group">
+                                                        <label class="form-label">Name<span class="text-danger">*</span></label>
+                                                        
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4 col-sm-12">
+                                                    <div class="mb-3">
+                                                        <label for="formFileMultipleone" class="form-label">Project Images & Document</label>
+                                                        
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4 col-sm-12">
+                                                    <div class="form-group">
+                                                        <label class="form-label">Mobile Number <span class="text-danger">*</span></label>
+                                                        
+                                                    </div>
+                                                </div>
+                                                <div class="col-12">
+                                                    <div class="form-group">
+                                                        <label class="form-label">Address</label>
+                                                       
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6 col-sm-12">
+                                                    <label class="form-label">Email <span class="text-danger">*</span></label>
+                                                    <div class="input-group">
+                                                        <span class="input-group-text">@</span>
+                                                        
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6 col-sm-12">
+                                                    <label class="form-label">Website Url</label>
+                                                    <div class="input-group">
+                                                        <span class="input-group-text">http://</span>
+                                                        <input type="text" class="form-control" value="">
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-6 col-md-6 col-lg-3">
+                                                    <div class="form-group">
+                                                        <label class="form-label">Education</label>
+                                                        
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-6 col-md-6 col-lg-3">
+                                                    <div class="form-group">
+                                                        <label class="form-label">State/Province</label>
+                                                        
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-6 col-md-6 col-lg-3">
+                                                    <div class="form-group">
+                                                        <label class="form-label">City</label>
+                                                        <input class="form-control" value="London" type="text">
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-6 col-md-6 col-lg-3">
+                                                    <div class="form-group">
+                                                        <label class="form-label">Postal Code</label>
+                                                        <input class="form-control" value="99444" type="text">
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <div class="form-group">
+                                                        <label class="form-label">Phone Number</label>
+                                                        <input class="form-control" value="902-855-8888" type="text">
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <div class="form-group">
+                                                        <label class="form-label">Fax</label>
+                                                        <input class="form-control" value="902-855-8888" type="text">
+                                                    </div>
+                                                </div>
+                                                <div class="col-12 mt-4">
+                                                    <button type="submit" value="submit" class="btn btn-primary">SAVE</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="tab-pane" id="Notifications">
+                                    <div class="card">
+                                        <div class="card-header p-3">
+                                            <h5 class="card-title">Notifications Settings</h5>
+                                        </div>
+                                        <div class="card-body">
+                                            <ul class="list-unstyled list-group list-group-custom list-group-flush mb-0">
+                                                <li class="list-group-item px-0 py-3">
+                                                    <div class="form-check form-switch">
+                                                        <input class="form-check-input" type="checkbox" value="" id="ns-1">
+                                                        <label class="form-check-label" for="ns-1">
+                                                            Anyone send me a message
+                                                        </label>
+                                                    </div>
+                                                </li>
+                                                <li class="list-group-item px-0 py-3">
+                                                    <div class="form-check form-switch">
+                                                        <input class="form-check-input" type="checkbox" value="" id="ns-2">
+                                                        <label class="form-check-label" for="ns-2">
+                                                            Anyone seeing my profile page
+                                                        </label>
+                                                    </div>
+                                                </li>
+                                                <li class="list-group-item px-0 py-3">
+                                                    <div class="form-check form-switch">
+                                                        <input class="form-check-input" type="checkbox" value="" id="ns-3">
+                                                        <label class="form-check-label" for="ns-3">
+                                                            Anyone posts a comment on my post
+                                                        </label>
+                                                    </div>
+                                                </li>
+                                                <li class="list-group-item px-0 py-3">
+                                                    <div class="form-check form-switch">
+                                                        <input class="form-check-input" type="checkbox" value="" id="ns-4">
+                                                        <label class="form-check-label" for="ns-4">
+                                                            Anyone send me a message
+                                                        </label>
+                                                    </div>
+                                                </li>
+                                                <li class="list-group-item px-0 py-3">
+                                                    <div class="form-check form-switch">
+                                                        <input class="form-check-input" type="checkbox" value="" id="ns-5">
+                                                        <label class="form-check-label" for="ns-5">
+                                                            Anyone seeing my profile page
+                                                        </label>
+                                                    </div>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="tab-pane" id="Change_Password">
+                                    <div class="card">
+                                        <div class="card-header p-3">
+                                            <h5 class="card-title">Change Password</h5>
+                                        </div>
+                                        <div class="card-body">
+                                            <div class="row g-3">
+                                                <div class="col-lg-4 col-md-12">
+                                                    <div class="form-group">
+                                                        <input type="text" class="form-control" value="Johnquinn" disabled="" placeholder="Username">
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-4 col-md-12">
+                                                    <div class="form-group">
+                                                        <input type="email" class="form-control" value="Johnquinn@gmail.com" placeholder="Email">
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-4 col-md-12">
+                                                    <div class="form-group">
+                                                        <input type="text" class="form-control" placeholder="Phone Number">
+                                                    </div>
+                                                </div>
+                                                <div class="col-12">
+                                                    <h6 class="border-top pt-2 mt-3 mb-3">Change Password</h6>
+                                                    <div class="mb-2">
+                                                        <input type="password" class="form-control" placeholder="Current Password">
+                                                    </div>
+                                                    <div class="mb-2">
+                                                        <input type="password" class="form-control" placeholder="New Password">
+                                                    </div>
+                                                    <div class="mb-2">
+                                                        <input type="password" class="form-control" placeholder="Confirm New Password">
+                                                    </div>
+                                                </div>
+                                                <div class="col-12 mt-4">
+                                                    <button type="button" class="btn btn-primary">SAVE</button> &nbsp;
+                                                    <button type="button" class="btn btn-default">CANCEL</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+{% endblock content %}

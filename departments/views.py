@@ -6,13 +6,16 @@ from .serializers import DepartmentsSerializer, DepartmentsSerializerEdit
 from accounts.views import custom_response
 from rest_framework.permissions import IsAuthenticated
 from rest_framework import status
+from django.contrib import messages
 from django.http import JsonResponse
 from accounts.models import User
 from main_app.models import Projects, Task
 from main_app.forms import ProjectsForm
 from accounts.forms import UserForm
 from accounts.serializers import UserSerializer
-import xlwt
+from main_app.views import project_data
+from .forms import DepartmentsForm 
+# import xlwt
 from django.http import HttpResponse
 
 # Create your views here.
@@ -102,7 +105,20 @@ class DeparmentsViewSet(ModelViewSet):
 
 def departments(request):
     data = Departments.objects.all()
-    context = {'data': data}
+    department_name = []
+    department_count = {}
+    for obj in data:
+        department_name.append(obj.name)
+    for department in department_name:
+        department_count[department] = User.objects.filter(department__name=department).count()
+    if request.method == "POST":
+        create_form = DepartmentsForm(request.POST)
+        if create_form.is_valid():
+            create_form.save()
+        return redirect('admin_departments')
+    else:
+        department_form = DepartmentsForm()
+    context = {'data': data, 'department_count': department_count, 'department_form':department_form}
     return render(request, 'Admin_templates/department.html', context)
 
 
@@ -120,18 +136,60 @@ def department_info(request, name):
             serializer.save()
             print(serializer.data, 'SERIALIZER DATA--------------------------')
     else:
-        form1 = UserForm()
+        form = UserForm()
     if request.method == "POST":
-        form = ProjectsForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('login_session')
+        create_form = ProjectsForm(request.POST)
+        if create_form.is_valid():
+            create_form.save()
+        return redirect('project_data')
+
     else:
-        form = ProjectsForm()
-    context = {'users': users, 'projects': projects, 'form':form, 'form':form1}
+        create_form = ProjectsForm()
+    context = {'users': users, 'projects': projects,'form':form, 'create_form':create_form}
     return render(request, 'Admin_templates/department_details.html', context)
+
+def update_project_department(request, id):
+    context = {}
+    obj = Projects.objects.get(id=id)
+    print(obj.id, "------------------------>")
+    # form = UpdateProjectForm(request.POST or None, instance=obj)
+    if request.method == "POST":
+        form_data = request.POST
+        print("Form DAta : ", form_data)
+        project_name = form_data['project-name']
+        project_category = form_data['projectt-category']
+        project_department = Departments.objects.get(name=form_data['project-department'])
+        project_priority = form_data['priority-list']
+        project_status = form_data['status-list']
+        project_desc = form_data['project-description']
+        project_created = form_data['project-description']
+        project_deadline = form_data['project-description']
+
+        project_obj = Projects.objects.get(id=id)
+        project_obj.project_name=project_name
+        project_obj.project_category=project_category
+        project_obj.description=project_desc
+        project_obj.status=project_status
+        project_obj.priority=project_priority
+        project_obj.department=project_department ####
+        project_obj.save()
+        return redirect('project_data')
+    else:
+        # update_form = UpdateProjectForm(instance=obj)
+        pass
+    context = {'obj':  obj}
+    return render(request, "Admin/department_details", context)
 
 
 def screenshorts(request):
     return render(request, 'screenshorts.html')
+
+def delete_department(request, id):
+    try:
+        user_data = Departments.objects.get(id=id)
+        user_data.delete()
+    except User.DoesNotExist:
+        messages.success(request, 'Department Does not exist!')
+    messages.success(request, 'Department deleted successfully')
+    return redirect('admin_departments')
 

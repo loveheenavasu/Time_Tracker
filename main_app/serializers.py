@@ -3,21 +3,21 @@ from accounts.serializers import UserDepartmentSerializer
 from .models import *
 
 
-
-
-
-
 class ProjectsSerializer(serializers.ModelSerializer):
     class Meta:
         model = Projects
         fields = '__all__'
 
+
 class TaskSerializer(serializers.ModelSerializer):
     project = ProjectsSerializer(read_only=True)
     assigned_to = UserDepartmentSerializer(read_only=True, many=True)
+
     class Meta:
         model = Task
-        fields = '__all__'
+        fields = ['priority', 'project', 'task_category', 'assigned_to', 'task_name', 'description', 'in_progress',
+                  'in_review', 'is_completed', 'deadline']
+
 
 class TaskSerializerEdit(serializers.ModelSerializer):
     class Meta:
@@ -30,13 +30,11 @@ class RemarksSerializer(serializers.ModelSerializer):
         model = Remarks
         fields = '__all__'
 
+
 class RemarksSerializerGET(serializers.ModelSerializer):
     project = ProjectsSerializer(read_only=True)
     task = TaskSerializerEdit(read_only=True)
+
     class Meta:
         model = Remarks
         fields = '__all__'
-
-
-
-

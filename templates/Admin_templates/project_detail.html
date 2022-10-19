@@ -6,7 +6,7 @@
                     <div class="row align-items-center">
                         <div class="border-0 mb-4">
                             <div class="card-header py-3 no-bg bg-transparent d-flex align-items-center px-0 justify-content-between border-bottom flex-wrap">
-                                <h3 class="h4 mb-0">Tickets Detail</h3>
+                                <h3 class="h4 mb-0">Project Details</h3>
                             </div>
                         </div>
                     </div> <!-- Row end  -->
@@ -52,7 +52,64 @@
                         </div>
                     </div>
                 </div>
-            </div>
+</div>
+                            <div class="row align-items-center">
+                                <div class="col-lg-12 col-md-12 flex-column">
+                                    <div class="tab-content mt-4 project-board">
+                                         <div class="row g-3 gy-5 py-3 row-deck">
+                                                {% for i in task_detail %}
+                                                <li class="dd-item" data-id="1">
+                                                    <div class="dd-handle">
+                                                        <div class="task-info d-flex align-items-center justify-content-between">
+                                                           <a href="#"> <h6 class="light-info-bg py-1 px-2 rounded-1 d-inline-block fw-bold small-14 mb-0">{{i.task_name}}</h6></a>
+                                                            <div class="task-priority d-flex flex-column align-items-center justify-content-center">
+                                                                <div class="avatar-list avatar-list-stacked m-0">
+                                                                    {% for j in i.get_assigned_users %}
+                                                                    <img class="avatar rounded-circle small-avt" src="{{j.url}}" alt="no img" height="50px" width="50px">
+                                                                    {% endfor %}
+                                                                </div>
+                                                                <span class="badge bg-warning text-end mt-2">{{i.priority}}</span>
+                                                            </div>
+                                                        </div>
+                                                        <p class="py-2 mb-0">{{i.description}}</p>
+                                                        <div class="tikit-info row g-3 align-items-center">
+                                                            <div class="col-sm">
+                                                                <ul class="d-flex list-unstyled align-items-center flex-wrap">
+                                                                    <li class="me-2">
+                                                                        <div class="d-flex align-items-center">
+                                                                            <i class="icofont-flag"></i>
+                                                                            <span class="ms-1">{{i.created_at.date}}</span>
+                                                                        </div>
+                                                                    </li>
+                                                                    <li class="me-2">
+                                                                        <div class="d-flex align-items-center">
 
-{% endfor %}
+                                                                                <i class="icofont-ui-text-chat"></i>
+                                                                                <span class="ms-1">4</span>
+
+                                                                        </div>
+                                                                    </li>
+                                                                    <li>
+                                                                        <div class="d-flex align-items-center">
+                                                                            <i class="icofont-paper-clip"></i>
+                                                                            <span class="ms-1">1</span>
+                                                                        </div>
+                                                                    </li>
+                                                                </ul>
+                                                            </div>
+                                                            <div class="col-sm text-end">
+
+                                                                <div class="small text-truncate light-danger-bg py-1 px-2 rounded-1 d-inline-block fw-bold small"> Social Geek Made </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                </li>
+                                                {% endfor %}
+                                            </div>    
+                                        
+                                    </div>
+                                </div>  
+                            </div>                              
+{% endfor %}                            
 {% endblock %}

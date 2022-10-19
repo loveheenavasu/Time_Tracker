@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-*d!3)p9*%k&&k=()y+)2g+*(sabrbr8-mofuk@a-0_3@!f=jm#
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['127.0.0.1', '.herokuapp.com']
 
 AUTH_USER_MODEL = 'accounts.User'
 
@@ -44,12 +44,18 @@ INSTALLED_APPS = [
     'departments',
     'rest_framework',
     'rest_framework_simplejwt',
+    'chats',
+    'django_filters',
     'company',
+    'whitenoise.runserver_nostatic',
+    'django.contrib.staticfiles',
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -81,25 +87,27 @@ WSGI_APPLICATION = 'Time_Tracker.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
+import dj_database_url
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'Time',
+        'USER': 'postgres',
+        'PASSWORD': 'z0987',
+        'HOST': 'localhost',
+        'PORT': '5432',
     }
 }
 
-
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql',
-#         'NAME': 'time_tracker',
-#         'USER': 'postgres',
-#         'PASSWORD': 'z0987',
-#         'HOST': 'localhost',
-#         'PORT': '5432',
-#     }
-# }
-
+db_from_env = dj_database_url.config(conn_max_age=500)
+DATABASES['default'].update(db_from_env)
 
 # Password validation
 # https://docs.djangoproject.com/en/4.0/ref/settings/#auth-password-validators
@@ -131,14 +139,22 @@ USE_I18N = True
 
 USE_TZ = True
 
+WHITENOISE_USE_FINDERS = True
+
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 
 STATIC_URL = '/static/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media') # Directory where uploaded media is saved.
+MEDIA_URL = '/media/' # Public URL at the browser
+
 STATICFILES_DIRS = [
    os.path.join(BASE_DIR, 'static/')
 ]
+
 
 
 # Default primary key field type
@@ -157,3 +173,13 @@ SIMPLE_JWT = {
 
 SESSION_COOKIE_SECURE = False
 SESSION_EXPIRE_AT_BROWSER_CLOSE = False
+
+DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+
+# AWS_ACCESS_KEY_ID=
+# AWS_SECRET_ACCESS_KEY=
+# AWS_STORAGE_BUCKET_NAME = 'time-tracker-docs'
+# AWS_QUERYSTRING_AUTHc = False

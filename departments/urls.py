@@ -10,6 +10,8 @@ urlpatterns = [
     path('department_details/<str:name>', views.department_info, name='department_details'),
     path('departments_/', views.departments, name='admin_departments'),
     path('screenshots/', views.screenshorts, name='screenshots'),
+    path('update_department_project/', views.update_project_department, name='update_department_project'),
+    path('delete_department/<int:id>', views.delete_department, name='delete_department')
 
 ]
 

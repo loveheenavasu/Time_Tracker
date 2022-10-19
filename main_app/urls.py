@@ -10,6 +10,7 @@ router.register(r'remarks', RemarksViewSet, basename='remark'),
 urlpatterns = [
     path('', include(router.urls)),
     path('project_data/', views.project_data, name='project_data'),
-    path('taskpage/', views.task, name='task'),
-    path('task_detail/<int:id>', views.task_detail, name='task_detail'),
+    path('taskpage/', views.task, name='taskpage'),
+    path('task_detail/<int:id>', views.task_detail, name='taskdetail'),
+    path('task_delete/<int:id>', views.delete_task, name='taskdelete'),
 ]

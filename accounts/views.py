@@ -1,27 +1,33 @@
 from django.contrib.auth.hashers import make_password
 from django.shortcuts import render, redirect
-from django.shortcuts import get_object_or_404
+from django.shortcuts import get_object_or_404,HttpResponseRedirect
 from rest_framework_simplejwt.views import TokenObtainPairView
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.permissions import AllowAny
 from django.contrib.auth import login, authenticate
+from main_app.forms import ProjectsForm
 from django.http import JsonResponse
 from django.contrib import messages
 from rest_framework.permissions import IsAuthenticated
+from django.urls import reverse_lazy
+from django.views.generic import TemplateView
 from rest_framework import status
-from .forms import UserForm
+from .forms import UserForm, UserUpdateForm
 from Time_Tracker.permissions import IsAdmin, IsProjectManager
-from .serializers import UserSerializer, MyTokenObtainPairSerializer
+from .serializers import UserSerializer, MyTokenObtainPairSerializer, UserIdStatusSerializer
 import requests
+import xlwt
 from main_app.models import Projects
 from django.views.decorators.csrf import csrf_exempt
 from .models import *
 from pathlib import Path
 from django.contrib.auth import logout
 from main_app.models import Task
-import xlwt
+from main_app.forms import UpdateProjectForm
+# import xlwt
 from django.http import HttpResponse
 BASE_DIR = Path(__file__).resolve().parent
+
 
 
 def custom_response(status, data=[], message=""):
@@ -236,19 +242,12 @@ def generate_token():
     return token
 
 
-
-
-
-
-
-
-
 def index(request):
     return render(request, 'index.html')
 
 
 def user_profile(request, id):
-    user_data = User.objects.get(id = id)
+    user_data = User.objects.get(id=id)
     user = request.user.id
     try:
         task_details = Task.objects.get(assigned_to=user)
@@ -263,28 +262,53 @@ def user_profile(request, id):
     return render(request, 'user_profile.html', context)
 
 
+
+# def IdStatus(request):
+#     all_users = User.objects.all()
+#     if request.method == "POST":
+#         print('---------------DATA', request.POST)
+#         serializer = UserIdStatusSerializer(data=request.POST)
+#         if serializer.is_valid():
+#             serializer.save()
+#             print(serializer.data, 'SERIALIZER DATA--------------------------')
+#
+#             return redirect('login_session')
+#     else:
+#         form = UserForm()
+#     return render(request, 'Admin_templates/all_users.html', {'all_users': all_users, 'form': form})
+
 def all_users(request):
     all_users = User.objects.all()
+    users = UserSerializer(all_users, many=True)
+    user_status = users.data
+    users_obj = users.__dict__
     if request.method == "POST":
-        print('---------------DATA', request.POST)
+        form = UserForm(request.POST)
+        # print('---------------DATA', request.POST)
         serializer = UserSerializer(data=request.POST)
         if serializer.is_valid():
             serializer.save()
-            print(serializer.data, 'SERIALIZER DATA--------------------------')
-
-            # form = UserForm(request.POST)
-            # print('----------------FORM', form)
-            # if form.is_valid():
-            #     form.save()
-            return redirect('login_session')
+            # print(serializer.data, 'SERIALIZER DATA--------------------------')
+            return redirect('all_users')
     else:
         form = UserForm()
-    return render(request, 'Admin_templates/all_users.html', {'all_users': all_users, 'form': form})
+    return render(request, 'Admin_templates/all_users.html', {'all_users': all_users, 'form': form, "users_obj": users_obj})
 
 
 def projects_details(request, id):
     projectsdata = Projects.objects.filter(id=id)
-    context = {'projectsdata': projectsdata}
+    task_detail = Task.objects.filter(project__id=id)
+    user_image =[]
+    for i in task_detail:
+        data = i.assigned_to.all()
+        print(data, "+++++++++++++++++++++++++++++>")
+        for j in data:
+            data2 = j.image
+            print(data2, "==================================================>")
+            user_image.append(j.image)
+
+    print("------------------------------------------------>",task_detail)
+    context = {'projectsdata': projectsdata, 'task_detail':task_detail,'user_image':user_image}
     return render(request, 'Admin_templates/project_detail.html', context)
 
 def delete_user(request, id):
@@ -300,17 +324,56 @@ def delete_user(request, id):
     except Exception as e:
         return render(request, 'front.html', {'err': e.message})
 
-    return render(request, 'Admin_templates/all_users.html')
+    return redirect('all_users')
 
+def update_project(request, id):
+    context = {}
+    obj = Projects.objects.get(id=id)
+    print(obj.id, "------------------------>")
+    # form = UpdateProjectForm(request.POST or None, instance=obj)
+    if request.method == "POST":
+        form_data = request.POST
+        print("Form DAta : ", form_data)
+        project_name = form_data['project-name']
+        project_category = form_data['projectt-category']
+        project_department = Departments.objects.get(name=form_data['project-department'])
+        project_priority = form_data['priority-list']
+        project_status = form_data['status-list']
+        project_desc = form_data['project-description']
+        project_created = form_data['project-description']
+        project_deadline = form_data['project-description']
+
+        project_obj = Projects.objects.get(id=id)
+        project_obj.project_name=project_name
+        project_obj.project_category=project_category
+        project_obj.description=project_desc
+        project_obj.status=project_status
+        project_obj.priority=project_priority
+        project_obj.department=project_department ####
+        project_obj.save()
+        return redirect('project_data')
+
+        
+        # update_form = UpdateProjectForm(request.POST, request.FILES, instance=obj)
+        # update_form.save()
+        # if update_form.is_valid():
+        #     update_form.save()
+        #     return HttpResponseRedirect("/" + id)
+        pass
+    else:
+        # update_form = UpdateProjectForm(instance=obj)
+        pass
+    context = {'obj':  obj, 'test': 'test'}
+    return render(request, "projects.html", context)
 
 def delete_project(request, id):
     try:
         user_data = Projects.objects.get(id=id)
+        user_data.delete()
     except User.DoesNotExist:
         messages.success(request, 'Project Does not exist!')
-    user_data.delete()
     messages.success(request, 'Project deleted successfully')
-    return render(request, 'projects.html')
+    return redirect('project_data')
 
 
 def export_users_xls(request):
@@ -343,11 +406,11 @@ def export_projects_xls(request):
     row_num = 0
     font_style = xlwt.XFStyle()
     font_style.font.bold = True
-    columns = ['project', 'is_ongoing', 'description', 'department', 'is_completed', 'created_at', 'updated_at', 'received_at', 'completed_at', 'deadline']
+    columns = ['is_ongoing', 'description', 'department', 'is_completed', 'created_at', 'updated_at', 'received_at', 'completed_at', 'deadline']
     for col_num in range(len(columns)):
         ws.write(row_num, col_num, str(columns[col_num]), font_style)
     font_style = xlwt.XFStyle()
-    rows = Projects.objects.all().values_list('project', 'is_ongoing', 'description', 'department', 'is_completed', 'created_at', 'updated_at', 'received_at', 'completed_at', 'deadline')
+    rows = Projects.objects.all().values_list( 'is_ongoing', 'description', 'department', 'is_completed', 'created_at', 'updated_at', 'received_at', 'completed_at', 'deadline')
     for row in rows:
         row_num += 1
         for col_num in range(len(row)):
@@ -362,3 +425,42 @@ def forgetpassword(request):
 def logout_view(request):
     logout(request)
     return redirect('login_session')
+
+
+def user_deactivate(request, user_id):
+    print("user ID for  deactivate", user_id)
+    user = User.objects.get(pk=user_id)
+    user.is_active = False
+    user.save()
+    print(user_id)
+    messages.error(request, "User account has been successfully deactivated!")
+    return redirect('all_users')
+
+def user_activate(request, user_id):
+    print("user ID for activate ", user_id)
+    user = User.objects.get(pk=user_id)
+    user.is_active = True
+    user.save()
+    messages.success(request, "User account has been successfully activated!")
+    return redirect('all_users')
+
+
+def profilesetting(request, id):
+    user_id = User.objects.get(id=id)
+    print(user_id,'-------------------->')
+    if request.method == 'POST':
+        print("Request data : ", request.POST)
+        u_form = UserUpdateForm(request.POST, instance=request.user)
+        if u_form.is_valid():
+            u_form.save()
+            messages.success(request, f'Your account has been updated!')
+            return redirect('profilesetting') # Redirect back to profile page
+
+    else:
+        print('----------------------------->')
+        u_form = UserUpdateForm(instance=request.user)
+
+    context = {'user_id':user_id, 'u_form':u_form}
+    return render(request, 'profilesetting.html', context)
+
+

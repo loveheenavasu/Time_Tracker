@@ -16,7 +16,9 @@
 </ul>
 {% endif %}
                                 <div class="col-auto d-flex w-sm-100 mt-2 mt-sm-0">
-                                    <button type="button" class="btn btn-dark btn-set-task w-sm-100" data-bs-toggle="modal" data-bs-target="#addemp"><i class="icofont-plus-circle me-2 fs-6"></i>Add Employee</button>
+                                    <a href="{% url 'export_excel' %}"><button type="button" class="btn btn-dark btn-set-task w-sm-100" data-bs-toggle="modal" ><i class="icofont-plus-circle me-2 fs-6"></i>Save Csv</button></a>
+                                    <button style="margin-left: 20px" type="button" class="btn btn-dark btn-set-task w-sm-100" data-bs-toggle="modal" data-bs-target="#addemp"><i class="icofont-plus-circle me-2 fs-6"></i>Add Employee</button>
+                                    
                                 </div>
                             </div>
                         </div>
@@ -39,15 +41,16 @@
                                     </thead>
                                     <tbody>
                                     {% for i in all_users %}
-                                    <a href="{% url 'user_profile' i.id %}">
                                         <tr>
 
                                            <td>
-                                               <img class="avatar rounded-circle" src="{% static 'assets/images/xs/avatar1.svg' %}" alt="">
+                                               <img class="avatar rounded-circle" src="{{i.image.url}}" alt="">
                                                <a href="{% url 'user_profile' i.id %}"><span class="fw-bold ms-1">{{i.fullname}}</span></a>
                                            </td>
                                            <td>
-                                               <a href="projects.html">{{i.department}}</a>
+
+                                               <a href="{% url 'department_details' i.department %}">{{i.department}}</a>
+
                                            </td>
                                            <td>
                                                 <a href="task.html">{{i.designation}}</a>
@@ -59,7 +62,18 @@
                                                 {{i.date_joined}}
                                            </td>
                                            <td>
-                                                <span class="badge bg-success">Working</span>
+                                               {% if i.is_active %}
+                                               <div class="form-check form-switch">
+                                                <input class="form-check-input deactivateInput" type="checkbox" id="flexSwitchCheckDefault1">
+                                              </div>
+                                    <a   href="{% url 'deactivate_user' i.get_user_id %}" id = '{{i.id}}' class="btn btn-sm btn-danger">Deactive</a>
+                                    {% else %}
+                                    <div class="form-check form-switch">
+                                        <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" checked>
+                                      </div>
+                                             
+                                    <a href="{% url 'activate_user' i.get_user_id %}" id = '{{i.id}}' class="btn btn-sm btn-success">Active</a>
+                                {% endif %}
                                            </td>
                                             <td>
                                                 <div class="btn-group" role="group" aria-label="Basic outlined example">
@@ -92,10 +106,10 @@
                                 <label  class="form-label">Employee Name</label>
                                 {{form.fullname}}
                             </div>
-                            <div class="mb-3">
+                            {% comment %} <div class="mb-3">
                                 <label for="formFileMultipleoneone" class="form-label">Employee Profile</label>
-                                <input class="form-control" type="file" id="formFileMultipleoneone" >
-                            </div>
+                                {{form.image}}
+                            </div> {% endcomment %}
                             <div class="deadline-form">
                                     <div class="row g-3 mb-3">
                                         <div class="col-sm-6">
@@ -137,7 +151,6 @@
                                             {{form.designation}}
                                         </div>
                                     </div>
-
                             </div>
                             <div class="mb-3">
                                 <label class="form-label">Description (optional)</label>
@@ -191,10 +204,40 @@
             </div>
                 </div>
             </div>
-<script>
+            </div>
+
+{% endblock %}
+
+{% block extra_js %}
+    <script>
+        
+        function handleStatus(userId){
+               console.log("toggling status of user id : ", userId);
+               let apiUrlDeactivate = "{{ deactivate_user }}"
+               let apiUrlActivate = "{{ activate_user }}"
+               let allUsers = JSON.stringify(`{{ users_obj }}`);
+                console.log("userObjuserObj ", allUsers);
+        }
+        jQuery.noConflict();
+            jQuery(document).on('click','.btn.btn-sm.btn-success',function(){
+                window.location.href = jQuery(this).attr('href');
+            });
+            jQuery(document).on('click','.form-switch input',function(){
+                jQuery(this).parents("td").find('.btn-success').trigger( "click");
+            });
+
+            jQuery(document).on('click','.btn.btn-sm.btn-danger',function(){
+                window.location.href = jQuery(this).attr('href');
+            });
+
+            jQuery(document).on('click','.deactivateInput',function(){
+                jQuery(this).parents("td").find('.btn-danger').trigger( "click");
+            });
+
+
         // project data table
-        $(document).ready(function() {
-            $('#myProjectTable')
+        jQuery(document).ready(function() {
+            jQuery('#myProjectTable')
             .addClass( 'nowrap' )
             .dataTable( {
                 responsive: true,
@@ -202,10 +245,10 @@
                     { targets: [-1, -3], className: 'dt-body-right' }
                 ]
             });
-            $('.deleterow').on('click',function(){
-            var tablename = $(this).closest('table').DataTable();
+            jQuery('.deleterow').on('click',function(){
+            var tablename = jQuery(this).closest('table').DataTable();
             tablename
-                    .row( $(this)
+                    .row( jQuery(this)
                     .parents('tr') )
                     .remove()
                     .draw();
@@ -213,4 +256,8 @@
             } );
         });
     </script>
+
 {% endblock %}
+
+
+

@@ -1,5 +1,6 @@
 {% extends 'Base.html' %}
 {% block content %}
+{% load static %}
 <div class="body d-flex py-lg-3 py-md-2">
                 <div class="container-xxl">
                     <div class="row align-items-center">
@@ -9,23 +10,18 @@
                             </div>
                         </div>
                     </div> <!-- Row end  -->
+                    {% for i in task_data %}
                     <div class="row g-3">
                         <div class="col-md-8">
                             <div class="card">
+
                                 <div class="card-body">
                                     <h3 class="mb-5 text-secondary">Task: Tc-00011</h3>
-                                    <h4 class="mb-3">{{task_data.task_name}}</h4>
-                                    <p class="fs-6">{{task_data.description}}</p>
-                                    <p class="fs-6">{{task_data.description}}</p>
-                                    <h5 class="mt-4 mb-3">Issue point</h5>
-                                    <ul class="list-unstyled list-style lh-lg">
-                                        <li><i class="fa fa-angle-double-right me-3"></i>It is a long established fact that a reader will be distracted</li>
-                                        <li><i class="fa fa-angle-double-right me-3"></i>Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text</li>
-                                        <li><i class="fa fa-angle-double-right me-3"></i>There are many variations of passages of Lorem Ipsum available</li>
-                                        <li><i class="fa fa-angle-double-right me-3"></i>The generated Lorem Ipsum is therefore always free from repetition</li>
-                                        <li><i class="fa fa-angle-double-right me-3"></i>Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of "de Finibus Bonorum et Malorum"</li>
-                                        <li><i class="fa fa-angle-double-right me-3"></i>It has survived not only five centuries, but also the leap into electronic</li>
-                                    </ul>
+                                    <h4 class="mb-3">{{i.task_name}}</h4>
+                                    <p class="fs-6">{{i.description}}</p>
+                                   
+                                   
+                                    
                                 </div>
                             </div>
                         </div>
@@ -33,24 +29,59 @@
                             <ul class="list-group">
                                 <li class="list-group-item d-flex justify-content-between align-items-center">
                                     Created:
-                                    <span class="">{{.created_at}}</span>
-                                </li>
-                                <li class="list-group-item d-flex justify-content-between align-items-center">
-                                    Created by:
-                                    <span class=""><a href="javascript:void(0);">Birju Cuda</a></span>
+                                    <span class="">{{i.created_at}}</span>
                                 </li>
                                 <li class="list-group-item d-flex justify-content-between align-items-center">
                                     Priority:
-                                    <span class="badge bg-danger">Highest <i class="fa fa-caret-down"></i></span>
+                                    <span class="badge bg-danger">{{i.priority}}<i class="fa fa-caret-down"></i></span>
                                 </li>
                                 <li class="list-group-item d-flex justify-content-between align-items-center">
                                     Status:
-                                    <span class="">Working</span>
+                                    <span class="">{{i.status}}</span>
                                 </li>
                             </ul>
                         </div>
-                    </div>
-                </div>
-            </div>
+                        <div class="row clearfix g-3">
+                            <div class="col-sm-12">
+                                <div class="card mb-3">
+                                    <div class="card-body">
+                                        <table id="myProjectTable" class="table table-hover align-middle mb-0" style="width:100%">
+                                            <thead>
+                                                <tr>
+                                                    <th>Employee Name</th>
+                                                    <th>Desigination</th>
+                                                    <th>Email</th>
+                                                    
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                            {% for i in task_user %}
+                                                <tr>
+                                                   <td>
+                                                       <img class="avatar rounded-circle" src="{{i.image}}" alt="">
+                                                       <a href="{% url 'user_profile' i.id %}"><span class="fw-bold ms-1">{{i.fullname}}</span></a>
+                                                   </td>
+                                                   
+                                                   <td>
+                                                        <a href="task.html">{{i.designation}}</a>
+                                                   </td>
+                                                   <td>
+                                                        <a href="mailto:">{{i.email}}</a>
+                                                   </td>
 
+                                                   <td> 
+                                                   </td>
+                                                </tr>
+                                            </a>
+                                            {% endfor %}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            </div>
+                    </div>
+                    {% endfor %}
+                </div>
+</div>
 {% endblock %}

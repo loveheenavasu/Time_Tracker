@@ -84,6 +84,13 @@
 .content a:hover{
   border-radius: 4px;
 }
+#myProjectTable .btn-success, #myProjectTable .btn-danger {
+  display: none;
+}
+
+.taskboard .progress_task .dd .dd-item{
+  cursor: pointer;
+}
 @media (max-width: 900px) {
   .services{
     display: flex;

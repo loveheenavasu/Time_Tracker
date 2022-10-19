@@ -2,7 +2,7 @@
 from rest_framework import serializers
 from .models import *
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
-from PIL import ImageGrab
+# from PIL import ImageGrab
 from datetime import date
 import time
 import datetime
@@ -34,8 +34,12 @@ BASE_DIR = Path(__file__).resolve().parent
 #             snapshot.save(os.path.join(path_to_save_screenshot, file_name))
 
 
-
+class UserIdStatusSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ['id', 'is_active']
     
+
 class UserSerializer(serializers.ModelSerializer):
 
     class Meta:
